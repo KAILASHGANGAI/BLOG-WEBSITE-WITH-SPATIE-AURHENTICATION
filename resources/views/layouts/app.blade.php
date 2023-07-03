@@ -19,12 +19,17 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                   </li>
+                 @if (!Auth::user())
+                     
                   <li class="nav-item">
                     <a class="nav-link" href="{{route('login')}}">Login</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{{route('register')}}" tabindex="-1" aria-disabled="true">Register</a>
                   </li>
+                 @endif
+
+                  @auth
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Admin
@@ -33,9 +38,11 @@
                       <li><a class="dropdown-item" href="/admin">Dashboard</a></li>
                       <li><a class="dropdown-item" href="#">Another action</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><a class="dropdown-item" href="/logout">LogOut</a></li>
                     </ul>
                   </li>
+                  @endauth
+                  
                  
                 </ul>
                 <form class="d-flex">

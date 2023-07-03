@@ -60,7 +60,7 @@
               </li>
               <li>
                 <a href="#" class="nav-link py-3 border-bottom" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
-          permissions
+                  permissions
                 </a>
               </li>
               <li>
@@ -74,11 +74,11 @@
                 <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li class="text-center">{{Auth::user()->name}}</li> <hr>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                <li><a class="dropdown-item" href="/logout">Sign out</a></li>
               </ul>
             </div>
           </div>

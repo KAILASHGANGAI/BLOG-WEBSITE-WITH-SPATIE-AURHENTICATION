@@ -10,22 +10,36 @@
 </head>
 <body>
    <div class="container">
-    <h2 class="text-center">Login Page</h2>
     <div class="row">
  
      <div class="col-sm-4 mx-auto shadow p-2 mt-5">
-         <form action="de" method="post">
+    <h2 class="text-center">Login Page</h2>
+     @if(Session::get('status'))
+         
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <strong>Success!</strong> {{Session::get('status')}}
+        </div>
+        @endif
+
+         <form action="login-check" method="post">
             @csrf
              <!-- Email input -->
              <div class="form-outline mb-4">
-               <input type="email" id="form2Example1" class="form-control" />
-               <label class="form-label" for="form2Example1">Email address</label>
+              @error('email')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+               <input type="email" id="form2Example1" name="email" class="form-control" />
+               <label class="form-label"  for="form2Example1">Email address</label>
              </div>
            
              <!-- Password input -->
              <div class="form-outline mb-4">
-               <input type="password" id="form2Example2" class="form-control" />
-               <label class="form-label" for="form2Example2">Password</label>
+              @error('password')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+               <input type="password" id="form2Example2" name="password" class="form-control" />
+               <label class="form-label"  for="form2Example2">Password</label>
              </div>
            
              <!-- 2 column grid layout for inline styling -->
@@ -45,11 +59,11 @@
              </div>
            
              <!-- Submit button -->
-             <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+             <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
            
              <!-- Register buttons -->
              <div class="text-center">
-               <p>Not a member? <a href="#!">Register</a></p>
+               <p>Not a member? <a href="/register">Register</a></p>
              
              </div>
            </form>
