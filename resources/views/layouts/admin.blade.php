@@ -6,7 +6,8 @@
 
         <title>Laravel</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </head>
+        <script src="/path/or/uri/to/tinymce.min.js" referrerpolicy="origin"></script>
+      </head>
     <style>
       .sidenav {
   height: 100%;
@@ -49,7 +50,7 @@
                 </a>
               </li>
               <li>
-                <a href="#" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+                <a href="/admin/blogs" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
                   Blogs
                   </a>
               </li>

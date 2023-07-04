@@ -30,7 +30,7 @@ class UserController extends Controller
 
         if(Auth::attempt($credentials)){
             $req->session()->regenerate();
-            return redirect()->intended('admin');
+            return redirect()->intended('dashboard');
 
         }else{
             return back()->withErrors([

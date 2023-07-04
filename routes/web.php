@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +27,18 @@ Route::post('login-check', [UserController::class,'login']);
 Route::post('register-save',[UserController::class, 'register']);
 Route::get('/logout',[UserController::class,'logout']);
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
         return view('dashboard');
+    });
+    Route::controller(BlogsController::class)->group(function () {
+        Route::get('/blogs', 'index');
+        Route::get('/blogs/create', 'create');
+        Route::post('/blogs/store', 'store');
+        Route::get('/blogs/{id}', 'show');
+        Route::get('/blogs/{id}/edit','edit' );
+        Route::post('/blogs/{id}','update');
+        Route::get('/blogs/delete/{id}', 'destroy');
+
     });
 });
