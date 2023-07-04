@@ -20,7 +20,8 @@ class UserController extends Controller
             'phone'=>$req->phone,
             'password'=>Hash::make($req->password)
         ]);
-        
+        $role = Role::where('name','default')->first();
+        $user->assignRole($role->id);
         return redirect('/login')->with('status', 'Registered Successfully, Please Login');
     }
 

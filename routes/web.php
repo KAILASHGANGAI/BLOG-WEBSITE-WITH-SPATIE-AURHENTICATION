@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManageController;
+use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WebsiteController::class, 'index']);
+Route::get('/single-blog/{id}', [WebsiteController::class, 'show']);
+
 
 Route::view('/login', 'auth.login')->name('login');
 
@@ -39,6 +42,17 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/blogs/{id}/edit','edit' );
         Route::post('/blogs/{id}','update');
         Route::get('/blogs/delete/{id}', 'destroy');
+        Route::get('/blogs/publish/{id}', 'publish');
 
     });
+    Route::controller(UserManageController::class)->group(function () {
+        Route::get('/users', 'index');
+        Route::get('/users/create', 'create');
+        Route::get('/users/{id}', 'show');
+        Route::get('/users/{id}/edit','edit' );
+        Route::post('/users-save/{id}','update');
+        Route::get('/users/delete/{id}', 'destroy');
+
+    });
+   Route::get('/roles', [RolesController::class, 'index']);
 });

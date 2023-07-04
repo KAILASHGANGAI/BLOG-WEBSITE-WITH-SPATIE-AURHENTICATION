@@ -23,7 +23,6 @@
       }
 .main {
   margin-left: 160px; /* Same as the width of the sidenav */
-  font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
 
@@ -54,21 +53,20 @@
                   Blogs
                   </a>
               </li>
+              @can('super-admin')
               <li>
-                <a href="#" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+                <a href="/admin/users" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+                  Users
+                  </a>
+              </li>
+              
+              <li>
+                <a href="/admin/roles" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
                     Roles
                 </a>
               </li>
-              <li>
-                <a href="#" class="nav-link py-3 border-bottom" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
-                  permissions
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link py-3 border-bottom" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-                  roles with permissions
-                </a>
-              </li>
+              @endcan
+             
             </ul>
             <div class="dropdown border-top">
               <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">

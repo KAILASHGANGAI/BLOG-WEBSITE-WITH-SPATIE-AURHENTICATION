@@ -15,7 +15,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $datas = blogs::all();
+        $datas = blogs::with('users')->latest()->paginate(2);
    
         return view('admin.blogs.index',compact('datas'));
     }
@@ -110,5 +110,19 @@ class BlogsController extends Controller
             return back()->with('status', 'deleted');
 
         }
+    }
+    public function publish($id){
+        $data = blogs::find($id);
+        if($data->status == 0){
+            $data->status = 1;
+            $data->save();
+            return back()->with('status', 'Published Successfully');
+
+        }else{
+            $data->status = 0;
+            $data->save();
+            return back()->with('status', 'UnPublished Successfully');
+        }
+
     }
 }

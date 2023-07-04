@@ -1,13 +1,11 @@
-@extends('../layouts.admin')
+@extends('../layouts.app')
 
 @section('content')
 
 <section class="container">
-    <div>   
-        Blogs
-    </div>
+    
     <div>
-       <img src="{{asset($data->image)}}"  class="w-100" style="height: 30vh">
+       <img src="{{asset($data->image)}}"  class="w-100" style="height: 50vh">
        <h2>{{$data->title}}</h2>
        <div>
         <span>Published By: {{$data->user_id}}</span> <br>

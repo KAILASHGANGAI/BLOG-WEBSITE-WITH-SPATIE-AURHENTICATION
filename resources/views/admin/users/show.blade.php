@@ -4,7 +4,7 @@
 
 <section class="container">
     <div>   
-        Blogs
+        <a href="/admin/blogs/create">Show Blogs</a>
     </div>
     <div>
        <img src="{{asset($data->image)}}"  class="w-100" style="height: 30vh">

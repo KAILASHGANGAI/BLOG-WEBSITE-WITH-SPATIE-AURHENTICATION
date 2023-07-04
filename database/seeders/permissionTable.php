@@ -23,18 +23,27 @@ class permissionTable extends Seeder
         Permission::create(['name' => 'delete articles']);
         Permission::create(['name' => 'publish articles']);
         Permission::create(['name' => 'unpublish articles']);
+        Permission::create(['name' => 'show articles']);
+
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'writer']);
         $role1->givePermissionTo('edit articles');
         $role1->givePermissionTo('delete articles');
+        $role1->givePermissionTo('show articles');
+
 
         $role2 = Role::create(['name' => 'admin']);
         $role2->givePermissionTo('publish articles');
         $role2->givePermissionTo('unpublish articles');
+        $role2->givePermissionTo('show articles');
 
         $role3 = Role::create(['name' => 'Super-Admin']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
+
+        $role4 = Role::create(['name' => 'default']);
+        $role4->givePermissionTo('show articles');
+
 
         // create demo users
         $user = User::create([
@@ -60,6 +69,13 @@ class permissionTable extends Seeder
             'password'=> Hash::make('password')
         ]);
         $user->assignRole($role3);
+        $user = User::create([
+            'name' => 'default',
+            'email' => 'default@gmail.com',
+            'phone'=>'981245896',
+            'password'=> Hash::make('password')
+        ]);
+        $user->assignRole($role4);
 
         
     }
