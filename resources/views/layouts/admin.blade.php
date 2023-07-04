@@ -10,17 +10,17 @@
       </head>
     <style>
       .sidenav {
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  z-index: ;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 3rem;
+        height: 100%;
+        width: 160px;
+        position: fixed;
+        z-index: ;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 3rem;
 
-}
+      }
 .main {
   margin-left: 160px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */

@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('image');
-            $table->longText('description');
+            $table->boolean('status')->default(0);
+
+            $table->longText('description')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
         });

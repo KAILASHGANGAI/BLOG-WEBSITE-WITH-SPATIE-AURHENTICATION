@@ -7,11 +7,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function register(RegisterReq $req){
-       $req->validated();
+      
         $user = User::create([
             'name'=>$req->name,
             'email'=>$req->email,
@@ -27,10 +29,9 @@ class UserController extends Controller
             'email'=>'required| email | exists:users',
             'password'=>'required|min:8'
         ]);
-
         if(Auth::attempt($credentials)){
             $req->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/admin/dashboard');
 
         }else{
             return back()->withErrors([
