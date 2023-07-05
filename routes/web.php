@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WebsiteController::class, 'index']);
 Route::get('/single-blog/{id}', [WebsiteController::class, 'show']);
+Route::post('/search-blog',[WebsiteController::class, 'search']);
 
 
 Route::view('/login', 'auth.login')->name('login');

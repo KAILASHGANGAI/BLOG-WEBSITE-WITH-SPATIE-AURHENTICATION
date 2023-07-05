@@ -17,5 +17,9 @@ class WebsiteController extends Controller
         return view('/single-blogs', compact('data'));
         
     }
+    public function search(Request $req){
+        $blogs = blogs::where('title', 'like', "%{$req->search}%")->get();
+        return view('welcome', compact('blogs'));
+    }
 
 }
