@@ -36,7 +36,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         return view('dashboard');
     });
     Route::controller(BlogsController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
-        Route::get('/blogs', 'index');
         Route::get('/blogs/create', 'create');
         Route::post('/blogs/store', 'store');
         Route::get('/blogs/{id}', 'show');
@@ -44,6 +43,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/blogs/{id}','update');
         Route::get('/blogs/delete/{id}', 'destroy');
     });
+    Route::get('/blogs', [BlogsController::class,'index']);
+
     Route::get('/blogs/publish/{id}', [BlogsController::class,'publish'])->middleware(['role:admin|Super-Admin']);
     Route::controller(UserManageController::class)->middleware(['role:Super-Admin'])->group(function () {
         Route::get('/users', 'index');
