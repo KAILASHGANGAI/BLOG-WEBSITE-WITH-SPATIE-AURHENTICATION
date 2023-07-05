@@ -15,7 +15,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $datas = blogs::with('users')->latest()->paginate(2);
+        $datas = blogs::with('users')->latest()->paginate(5);
    
         return view('admin.blogs.index',compact('datas'));
     }

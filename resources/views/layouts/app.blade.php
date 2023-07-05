@@ -31,7 +31,7 @@
                   @auth
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Admin
+                      {{Auth::user()->name}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                       <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>

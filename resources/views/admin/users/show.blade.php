@@ -7,7 +7,7 @@
         <a href="/admin/blogs/create">Show Blogs</a>
     </div>
     <div>
-       <img src="{{asset($data->image)}}"  class="w-100" style="height: 30vh">
+       {{-- <img src="{{asset($data->image)}}"  class="w-100" style="height: 30vh"> --}}
        <h2>{{$data->title}}</h2>
        <div>
         <span>Published By: {{$data->user_id}}</span> <br>

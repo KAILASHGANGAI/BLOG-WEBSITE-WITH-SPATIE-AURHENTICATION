@@ -31,10 +31,11 @@ Route::post('register-save',[UserController::class, 'register']);
 Route::get('/logout',[UserController::class,'logout']);
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
-    Route::controller(BlogsController::class)->group(function () {
+    Route::controller(BlogsController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
         Route::get('/blogs', 'index');
         Route::get('/blogs/create', 'create');
         Route::post('/blogs/store', 'store');
@@ -42,17 +43,17 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/blogs/{id}/edit','edit' );
         Route::post('/blogs/{id}','update');
         Route::get('/blogs/delete/{id}', 'destroy');
-        Route::get('/blogs/publish/{id}', 'publish');
-
     });
-    Route::controller(UserManageController::class)->group(function () {
+    Route::get('/blogs/publish/{id}', [BlogsController::class,'publish'])->middleware(['role:admin|Super-Admin']);
+    Route::controller(UserManageController::class)->middleware(['role:Super-Admin'])->group(function () {
         Route::get('/users', 'index');
         Route::get('/users/create', 'create');
         Route::get('/users/{id}', 'show');
         Route::get('/users/{id}/edit','edit' );
         Route::post('/users-save/{id}','update');
         Route::get('/users/delete/{id}', 'destroy');
-
     });
-   Route::get('/roles', [RolesController::class, 'index']);
+   Route::get('/roles', [RolesController::class, 'index'])->middleware(['role:Super-Admin']);
 });
+
+

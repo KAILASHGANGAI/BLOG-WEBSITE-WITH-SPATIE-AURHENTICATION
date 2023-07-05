@@ -41,6 +41,8 @@
     </tr>
 @endforeach
   </table>
+
+  {{$datas->links()}}
 </section>
 
 @endsection
