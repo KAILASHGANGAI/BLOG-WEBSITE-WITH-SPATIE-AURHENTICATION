@@ -65,6 +65,11 @@
                     Roles
                 </a>
               </li>
+              <li>
+                <a href="/admin/payments" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+                    Payments
+                </a>
+              </li>
               @endcan
              
             </ul>

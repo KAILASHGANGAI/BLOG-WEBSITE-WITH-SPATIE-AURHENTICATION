@@ -18,7 +18,11 @@ class WebsiteController extends Controller
         
     }
     public function search(Request $req){
-        $blogs = blogs::where('title', 'like', "%{$req->search}%")->get();
+        $blogs = blogs::where('title', 'like', "%{$req->search}%")
+        ->orwhere('type', 'like', "%{$req->search}%")
+        ->orwhere('price', 'like', "%{$req->search}%")
+        ->orwhere('description', 'like', "%{$req->search}%")
+        ->get();
         return view('welcome', compact('blogs'));
     }
 

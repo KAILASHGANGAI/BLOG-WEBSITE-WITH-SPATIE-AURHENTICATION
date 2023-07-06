@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('payment_details', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('image');
-            $table->boolean('status')->default(0);
-            $table->string('price')->nullable(0);
-            $table->string('type')->nullable(0);
-            $table->longText('description')->nullable();
             $table->foreignId('user_id');
+            $table->string('username');
+            $table->foreignId('blog_id');
+            $table->integer('amount');
+            $table->longText('esewa_status')->default('unverified');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('payment_details');
+        
     }
 };

@@ -12,7 +12,7 @@
     @endcan
   <table class="table">
 <tr>
-    <th>S.N</th> <th>Title</th> <th>Image</th> <th>User</th> <th>Action</th>
+    <th>S.N</th> <th>Title</th> <th>Image</th> @if($user_type != 'default')  <th>User</th> @endif <th>Type</th> <th>Price</th> <th>Action</th>
 </tr>
 @foreach ($datas as $key=>$data)
     <tr>
@@ -21,7 +21,11 @@
         <td>
             <img src="{{asset($data->image)}}" alt="" height="100px" width="100px">
         </td>
-            <td>{{$data->users->name}}</td>
+        @if($user_type != 'default')            
+        <td>{{$data->users->name}}</td>
+        @endif
+            <td>{{$data->type}}</td>
+            <td>{{$data->price}}</td>
         <td>
             @can('edit articles')
             <a href="/admin/blogs/delete/{{$data->id}}">delete</a>
@@ -38,16 +42,22 @@
             @endif
 
             @endcan
-            
+
+            @if($user_type == 'default')
+            <a href="/admin/blogs/{{$data->blog_id}}">view</a>
+
+            @else            
             <a href="/admin/blogs/{{$data->id}}">view</a>
-            
+            @endif
         </td>
     </tr>
 @endforeach
   </table>
  
 </section>
+@if($user_type != 'default')
 <div class="d-flex justify-content-center">
     {!! $datas->links() !!}
 </div>
+@endif
 @endsection

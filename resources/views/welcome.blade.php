@@ -18,6 +18,15 @@
           <div class="card-body">
             <h5 class="card-title">{{$blog->title}}</h5>
             <div>
+              <div class="d-flex justify-content-sm-between">
+                @if($blog->type =='free')
+                <span class="text-left text-info">{{ucfirst($blog->type)}}</span>
+                @else
+                <span class="text-left  text-success">{{ucfirst($blog->type)}}</span>
+                <span class="text-left  text-success">Nrs.{{$blog->price}}/-</span>
+              
+                @endif
+              </div>
   @php
   $start = strpos($blog->description, '<p>');
   $end = strpos($blog->description, '</p>', $start);
@@ -27,7 +36,11 @@
   {!! $paragraph !!}
           
             </div>
-            <a href="/single-blog/{{$blog->id}}" class="btn btn-primary">Read</a>
+            @if($blog->type =='free')
+            <a href="/single-blog/{{$blog->id}}" class="btn btn-primary">Read more..</a>
+            @else
+            <a href="/choose-payment-methods/{{$blog->id}}" class="btn btn-danger">Buy Now!</a>
+            @endif
           </div>
         </div>
       </div>

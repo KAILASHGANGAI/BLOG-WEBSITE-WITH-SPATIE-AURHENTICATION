@@ -22,6 +22,21 @@
             <span class="text-danger">{{$message}}</span>
         @enderror
         </div>
+        <div class="form-group col-sm-6">
+            <label for="#"> Blog Types</label> <br>
+            <select name="type" id="" class="form-control">
+              
+                <option value="@isset($data->type) {{$data->type}} @else {{ ''}} @endif">@isset($data->type) {{$data->type}} @else {{'Choose'}} @endif</option>
+                  
+          
+                <option value="free">Free</option>
+                <option value="paid">Paied</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="#">Price</label> <br>
+            <input type="text" name="price" id="" class="form-control">
+        </div>
         <div class="form-group">
             
                 <label for="">description</label> <br>
