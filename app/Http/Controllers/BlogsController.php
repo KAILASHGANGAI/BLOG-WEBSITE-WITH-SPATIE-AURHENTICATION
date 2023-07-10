@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreated;
 use App\Http\Requests\blogRequest;
 use App\Models\blogs;
 use App\Models\esewadetail;
@@ -63,6 +64,8 @@ class BlogsController extends Controller
             'user_id'=> Auth::id()
         ]);
         if($blog){
+            $data = ['title'=>$blog->title, 'auther'=>Auth::user()->name];
+            event(new PostCreated($data));
             return redirect('/admin/blogs')->with('status',' Blog added successfully');
         }else{
             return redirect('/admin/blogs')->with('status',' Blog failed to save');
