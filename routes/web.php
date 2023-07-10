@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [WebsiteController::class, 'index']);
-Route::get('/single-blog/{id}', [WebsiteController::class, 'show']);
+Route::get('/single-blog/{id}', [WebsiteController::class, 'show'])->middleware('auth');
 Route::post('/search-blog',[WebsiteController::class, 'search']);
 Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa']);
 Route::view('/login', 'auth.login')->name('login');
