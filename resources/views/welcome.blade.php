@@ -34,7 +34,6 @@
       
   @endphp
   {!! $paragraph !!}
-          
             </div>
             @if($blog->type =='free')
             <a href="/single-blog/{{$blog->id}}" class="btn btn-primary">Read more..</a>

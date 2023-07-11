@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\blogs;
+use App\Models\esewadetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WebsiteController extends Controller
 {
@@ -13,7 +15,16 @@ class WebsiteController extends Controller
     }
     public function show($id)
     {
-        $data = blogs::find($id);
+        $data = blogs::with('comments', 'comments.hasusers:id,name')->find($id);
+        if($data->type == 'paid'){
+            $blogspaied =  esewadetail::where('blog_id', $data->id)->where('user_id', Auth::id())->count();
+            if ($blogspaied > 0) {
+                return view('/single-blogs', compact('data'));
+            }else{
+                  ;
+                return back()->with('status', "<script> alert('It is Paid.') </script>");
+            }
+        }
         return view('/single-blogs', compact('data'));
         
     }

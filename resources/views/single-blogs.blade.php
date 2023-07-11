@@ -69,6 +69,12 @@
     border-top:1px dotted #bbb;
     padding:10px;
 }
+.circle{
+    text-align: center;
+    padding:8px;
+    border-radius: 100%;
+    background: indianred;
+}
 </style>
 
 <section class="container">
@@ -95,40 +101,47 @@
     <div class="commentBox">
         
         <p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        @if(Session::get('status'))
+         
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <strong>Success!</strong> {!! Session::get('status') !!}
+        </div>
+        @endif
     </div>
     <div class="actionBox">
         <ul class="commentList">
-            <li>
-                <div class="commenterImage">
-                  <img src="http://placekitten.com/50/50" />
+            @foreach($data->comments as $comment)
+            <li class="">
+                <div class="px-4">
+                  <span class="circle" id="circle">{{$comment->hasusers->name[0]}}</span> 
                 </div>
-                <div class="commentText">
-                    <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
+                <script>
+
+                    function random_bg_color() {
+                        var x = Math.floor(Math.random() * 256);
+                        var y = Math.floor(Math.random() * 256);
+                        var z = Math.floor(Math.random() * 256);
+                        var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+                      
+                        document.getElementById('circle').style.background = bgColor;
+                        }
+                    
+                    random_bg_color();
+                    </script>
+                <div class="commentText mx-4">
+                    <p class="">{{$comment->comment}}</p> <span class="date sub-text">{{$comment->created_at}}</span>
 
                 </div>
             </li>
-            <li>
-                <div class="commenterImage">
-                  <img src="http://placekitten.com/45/45" />
-                </div>
-                <div class="commentText">
-                    <p class="">Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                </div>
-            </li>
-            <li>
-                <div class="commenterImage">
-                  <img src="http://placekitten.com/40/40" />
-                </div>
-                <div class="commentText">
-                    <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                </div>
-            </li>
+            @endforeach
+            
         </ul>
-        <form class="  justify-content-space-between" role="form">
+        <form class="justify-content-space-between" action="/comment-submit" method="POST">
+            @csrf
             <div class="form-group w-100">
-                <textarea class="form-control w-100" type="text" placeholder="Your comments"> </textarea>
+                <input type="hidden" name="blog_id" value="{{$data->id}}">
+                <textarea class="form-control w-100" name="comment" type="text" placeholder="Your comments"> </textarea>
             </div> 
             <div class="form-group mt-2 float-end">
                 <button class="btn btn-success">Add</button>
@@ -136,5 +149,6 @@
         </form>
     </div>
 </div>
+
 </section>
 @endsection
