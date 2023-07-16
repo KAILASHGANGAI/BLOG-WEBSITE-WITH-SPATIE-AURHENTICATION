@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('image');
             $table->boolean('status')->default(0);
+            $table->boolean('category_id');
             $table->string('price')->nullable(0);
             $table->string('type')->nullable(0);
             $table->longText('description')->nullable();

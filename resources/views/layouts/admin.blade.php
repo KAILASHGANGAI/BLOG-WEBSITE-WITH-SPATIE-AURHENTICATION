@@ -6,31 +6,10 @@
 
         <title>Laravel</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="/path/or/uri/to/tinymce.min.js" referrerpolicy="origin"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{asset('/css/style.css')}}">
       </head>
-    <style>
-      .sidenav {
-        height: 100%;
-        width: 160px;
-        position: fixed;
-        z-index: ;
-        top: 0;
-        left: 0;
-        background-color: #111;
-        overflow-x: hidden;
-        padding-top: 3rem;
-
-      }
-.main {
-  margin-left: 160px; /* Same as the width of the sidenav */
-  padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-    </style>
+    
     <body class="antialiased">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -55,11 +34,15 @@
               </li>
               @can('super-admin')
               <li>
+                <a href="/admin/category" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+                  Category
+                  </a>
+              </li>
+              <li>
                 <a href="/admin/users" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
                   Users
                   </a>
               </li>
-              
               <li>
                 <a href="/admin/roles" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
                     Roles
@@ -89,9 +72,75 @@
             <main class="main">
                 @yield('content')
             </main>
-            
+            <span class="open-button text-white" onclick="openForm()"><i class="fas fa-paper-plane"></i></span>
 
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+            <div class="chat-popup" id="myForm">
+              <form class="form-container">          
+               <div class="d-flex justify-content-between">
+                <label for="msg"><b>Message</b></label>        
+                <span  class="" onclick="closeForm()"><i class="fa-solid fa-xmark"></i></span>
+               </div>
+
+                <div class="message">
+                  <div class="d-flex flex-row justify-content-start mb-4">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                      alt="avatar 1" style="width: 45px; height: 100%;">
+                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                      <p class="small mb-0">Hello and thank you for visiting MDBootstrap. Please click the video
+                        below.</p>
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex flex-row justify-content-end mb-4">
+                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                      <p class="small mb-0">Thank you, I really like your product.</p>
+                    </div>
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                      alt="avatar 1" style="width: 45px; height: 100%;">
+                  </div>
+                  <div class="d-flex flex-row justify-content-end mb-4">
+                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                      <p class="small mb-0">Thank you, I really like your product.</p>
+                    </div>
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                      alt="avatar 1" style="width: 45px; height: 100%;">
+                  </div>
+                  <div class="d-flex flex-row justify-content-end mb-4">
+                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                      <p class="small mb-0">Thank you, I really like your product.</p>
+                    </div>
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                      alt="avatar 1" style="width: 45px; height: 100%;">
+                  </div>
+                  <div class="d-flex flex-row justify-content-end mb-4">
+                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                      <p class="small mb-0">Thank you, I really like your product.</p>
+                    </div>
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                      alt="avatar 1" style="width: 45px; height: 100%;">
+                  </div>
+                </div>
+                <div class="d-flex my-2 text-center">
+                  <input type="text" class="form-control form-control-lg w-100" id="exampleFormControlInput1"
+              placeholder="Type message">
+                <button class="-3 submit-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+              </form>
+            </div>
+<script>
+  function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+
+}
+</script>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     </body> 
 </html>

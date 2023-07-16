@@ -5,9 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laravel</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </head>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.5.1/tinymce.min.js" integrity="sha512-UhysBLt7bspJ0yBkIxTrdubkLVd4qqE4Ek7k22ijq/ZAYe0aadTVXZzFSIwgC9VYnJabw7kg9UMBsiLC77LXyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+      </head>
     <body class="antialiased">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">MyBlog</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,6 +44,19 @@
                     </ul>
                   </li>
                   @endauth
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Category
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                      @foreach ($categories as $category)
+
+                      <li><a class="dropdown-item" href="/blog/category/{{$category->id}}">{{$category->categoryName}}</a></li>
+                          
+                      @endforeach
+                      
+                    </ul>
+                  </li>
                 </ul>
                 <form class="d-flex" action="/search-blog" method="post">
                   @csrf

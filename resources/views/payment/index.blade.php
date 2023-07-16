@@ -15,7 +15,17 @@
       <tr>
             <td>{{++$key}}</td>
             <td>{{$item->username}}</td>
-            <td>{{$item->users->phone}}</td>
+            <td>
+                @if (isset($item->users->phone))
+                {{$item->users->phone}}
+                    
+                @else
+                    {{'-'}}
+                @endif
+            </td>
+            
+
+           
             <td>{{$item->amount}}</td>
             <td>{{$item->esewa_status}}</td>
             <td>{{$item->blogs->title}}</td>

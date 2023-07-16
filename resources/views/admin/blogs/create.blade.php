@@ -22,7 +22,7 @@
             <span class="text-danger">{{$message}}</span>
         @enderror
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
             <label for="#"> Blog Types</label> <br>
             <select name="type" id="" class="form-control">
               
@@ -33,7 +33,23 @@
                 <option value="paid">Paied</option>
             </select>
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
+            <label for="#"> Choose Category</label> <br>
+            <select name="category_id" id="" class="form-control">
+              
+             <option value="@isset($data->category_id) {{$data->category_id}} @else {{ ''}} @endif">@isset($data->category_id) {{$data->category->categoryName}} @else {{'Choose'}} @endif</option>
+                  
+          @foreach ($categories as $category)
+          <option value="{{$category->id}}">{{$category->categoryName}}</option>
+              
+          @endforeach
+               
+            </select>
+            @error('category_id')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+        <div class="form-group col-sm-4">
             <label for="#">Price</label> <br>
             <input type="text" name="price" id="" class="form-control">
         </div>
@@ -48,17 +64,15 @@
                 </textarea>
                 
         </div>
-
-        <div class="form-group">
+        <div class="form-group mt-3">
             <button type="submit" class="btn btn-success">Save</button>
         </div>
        </div>
     </form>
 </section>
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script>
-  tinymce.init({
+<script src="https://cdn.tiny.cloud/1/17vw4tb4bqnyig42ppb7v631gii7g5n6s9yk8be02f7rq7uw/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script> 
+tinymce.init({
         selector: '#mytextarea'
       });
  </script>

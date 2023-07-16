@@ -1,29 +1,23 @@
 <?php
 
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EsewaController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', [WebsiteController::class, 'index']);
 Route::get('/single-blog/{id}', [WebsiteController::class, 'show'])->middleware('auth');
 Route::post('/search-blog',[WebsiteController::class, 'search'])->name('search');
-Route::post('/comment-submit', [CommentController::class, 'store'])->name('comment-save');
+Route::get('/blog/category/{category}', [WebsiteController::class, 'categoryBlogs']);
+Route::post('/comment-submit', [CommentController::class, 'store'])->name('comment');
+Route::post('/send-message', [MessageController::class, 'sendMessage']);
+Route::get('/get-message', [MessageController::class, 'getMessage']);
+
 
 Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa']);
 Route::view('/login', 'auth.login')->name('login');
@@ -45,13 +39,19 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
-
     Route::controller(BlogsController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
         Route::get('/blogs/create', 'create');
         Route::post('/blogs/store', 'store');
         Route::get('/blogs/{id}/edit','edit' );
         Route::post('/blogs/{id}','update');
         Route::get('/blogs/delete/{id}', 'destroy');
+    });
+    Route::controller(CategoryController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
+        Route::get('/category', 'index');
+        Route::post('/category/store', 'store');
+        Route::get('/category/{id}/edit','edit' );
+        Route::post('/category/{id}','update');
+        Route::get('/category/delete/{id}', 'destroy');
     });
 
     Route::get('/blogs/{id}', [BlogsController::class,'show']);

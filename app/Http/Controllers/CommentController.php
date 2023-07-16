@@ -12,8 +12,9 @@ class CommentController extends Controller
 
     }
     public function store(Request $req){
+       
        $req->validate([
-        'comment'=>'required | min:4'
+        'comment'=>'required|min:4'
        ]);
           
        $comment  = Comment::create([

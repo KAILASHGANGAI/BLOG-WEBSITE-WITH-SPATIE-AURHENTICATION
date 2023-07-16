@@ -113,22 +113,10 @@
         <ul class="commentList">
             @foreach($data->comments as $comment)
             <li class="">
-                <div class="px-4">
-                  <span class="circle" id="circle">{{$comment->hasusers->name[0]}}</span> 
+                <div class="px-4" title="{{$comment->hasusers->name}}">
+                  <span class="circle" id="circle">{{ucfirst($comment->hasusers->name[0])}}</span> 
                 </div>
-                <script>
-
-                    function random_bg_color() {
-                        var x = Math.floor(Math.random() * 256);
-                        var y = Math.floor(Math.random() * 256);
-                        var z = Math.floor(Math.random() * 256);
-                        var bgColor = "rgb(" + x + "," + y + "," + z + ")";
-                      
-                        document.getElementById('circle').style.background = bgColor;
-                        }
-                    
-                    random_bg_color();
-                    </script>
+              
                 <div class="commentText mx-4">
                     <p class="">{{$comment->comment}}</p> <span class="date sub-text">{{$comment->created_at}}</span>
 
@@ -151,4 +139,5 @@
 </div>
 
 </section>
+
 @endsection

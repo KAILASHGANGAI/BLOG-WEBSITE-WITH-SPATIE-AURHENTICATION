@@ -9,7 +9,7 @@ class blogs extends Model
 {
         
     use HasFactory, LogsActivity;
-    protected $fillable =['title','image'	,'description'	,'user_id','type', 'price'];
+    protected $fillable =['title','image'	,'description','category_id','user_id','type', 'price'];
 
      public function getActivitylogOptions(): LogOptions
     {
@@ -18,6 +18,9 @@ class blogs extends Model
     }
     public function users(){
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
     public function comments(){
         return $this->hasMany(Comment::class, 'blog_id', 'id');

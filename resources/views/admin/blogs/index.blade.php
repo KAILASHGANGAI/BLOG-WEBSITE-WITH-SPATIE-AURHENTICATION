@@ -12,19 +12,23 @@
     @endcan
   <table class="table">
 <tr>
-    <th>S.N</th> <th>Title</th> <th>Image</th> @if($user_type != 'default')  <th>User</th> @endif <th>Type</th> <th>Price</th> <th>Action</th>
+    <th>S.N</th> <th>Title</th> <th>Image</th> @if($user_type != 'default')  <th>User</th> <th>Category</th> @endif <th>Type</th>  <th>Price</th> <th>Action</th>
 </tr>
 @foreach ($datas as $key=>$data)
     <tr>
         <td>{{++$key}}</td>
         <td>{{$data->title}}</td>
         <td>
-            <img src="{{asset($data->image)}}" alt="" height="100px" width="100px">
+            <img src="{{ asset($data->image)}}" alt="" height="100px" width="100px">
         </td>
         @if($user_type != 'default')            
         <td>{{$data->users->name}}</td>
+        <td>{{$data->category->categoryName}}</td>
         @endif
             <td>{{$data->type}}</td>
+             
+            
+
             <td>{{$data->price}}</td>
         <td>
             @can('edit articles')

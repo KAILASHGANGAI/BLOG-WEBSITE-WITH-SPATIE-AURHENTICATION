@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Events\PostCreated;
 use App\Http\Requests\blogRequest;
 use App\Models\blogs;
+use App\Models\Category;
 use App\Models\esewadetail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Psy\CodeCleaner\ReturnTypePass;
 
 class BlogsController extends Controller
@@ -34,7 +36,7 @@ class BlogsController extends Controller
            return view('admin.blogs.index',compact('datas', 'user_type'));
 
           }else{
-            $datas = blogs::with('users')->latest()->paginate(5);
+            $datas = blogs::with('users','category:id,categoryName')->latest()->paginate(5);
             return view('admin.blogs.index',compact('datas', 'user_type'));
 
           }
@@ -43,8 +45,9 @@ class BlogsController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('admin.blogs.create');
+    {   
+        $categories = Category::select('id','categoryName')->get();
+        return view('admin.blogs.create', compact('categories'));
     }
     /**
      * Store a newly created resource in storage.
@@ -55,9 +58,13 @@ class BlogsController extends Controller
          $imageName = time().'.'.$request->image->extension();  
          $request->image->move(public_path('image'), $imageName);
          $path = 'image/'.$imageName;
+        //$path = Storage::put('/blogs/img', $request->image);
+        
+
         $blog = blogs::create([
             'title'=>$request->title,
             'description'=>$request->description,
+            'category_id'=>$request->category_id,
             'image'=>$path,
             'price'=>$request->price,
             'type'=>$request->type,
@@ -88,9 +95,11 @@ class BlogsController extends Controller
      */
     public function edit($id)
     {
-        $data = blogs::find($id);
+        $data = blogs::with('category')->find($id);
+        $categories = Category::select('id','categoryName')->get();
+
         
-        return view('admin.blogs.create', compact('data'));
+        return view('admin.blogs.create', compact('data','categories'));
     }
 
     /**
@@ -109,6 +118,7 @@ class BlogsController extends Controller
         $blog = blogs::find($id)->update([
             'title'=>$request->title,
             'description'=>$request->description,
+            'category_id'=>$request->category_id,
             'image'=>$path,
             'price'=>$request->price,
             'type'=>$request->type,

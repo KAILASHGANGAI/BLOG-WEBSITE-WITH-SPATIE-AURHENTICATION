@@ -24,7 +24,8 @@ class blogRequest extends FormRequest
         return [
             'title'=>'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'description'=>'required'
+            'description'=>'required',
+            'category_id'=>'required'
         ];
     }
 }
