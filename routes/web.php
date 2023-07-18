@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
+
 Route::get('/', [WebsiteController::class, 'index']);
 Route::get('/single-blog/{id}', [WebsiteController::class, 'show'])->middleware('auth');
 Route::post('/search-blog',[WebsiteController::class, 'search'])->name('search');
@@ -17,7 +18,7 @@ Route::get('/blog/category/{category}', [WebsiteController::class, 'categoryBlog
 Route::post('/comment-submit', [CommentController::class, 'store'])->name('comment');
 Route::post('/send-message', [MessageController::class, 'sendMessage']);
 Route::get('/get-message', [MessageController::class, 'getMessage']);
-
+Route::get('/notes',[WebsiteController::class, 'notes'])->name('notes');
 
 Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa']);
 Route::view('/login', 'auth.login')->name('login');

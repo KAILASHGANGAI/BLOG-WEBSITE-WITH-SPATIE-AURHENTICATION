@@ -7,30 +7,20 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.5.1/tinymce.min.js" integrity="sha512-UhysBLt7bspJ0yBkIxTrdubkLVd4qqE4Ek7k22ijq/ZAYe0aadTVXZzFSIwgC9VYnJabw7kg9UMBsiLC77LXyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
       </head>
     <body class="antialiased">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow sticky-top">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">MyBlog</a>
+              <a class="navbar-brand" href="/">MyBlog</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                   </li>
-                 @if (!Auth::user())
-                     
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{route('login')}}">Login</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{route('register')}}" tabindex="-1" aria-disabled="true">Register</a>
-                  </li>
-                 @endif
-
+                
                   @auth
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +47,24 @@
                       
                     </ul>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('notes')}}">Notes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('notes')}}">Loke Sewa Aaayog</a>
+                  </li>
                 </ul>
+                @if (!Auth::user())
+                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('login')}}">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('register')}}" tabindex="-1" aria-disabled="true">Register</a>
+                </li>
+                </ul>
+               @endif
                 <form class="d-flex" action="/search-blog" method="post">
                   @csrf
                   <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">

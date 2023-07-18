@@ -48,5 +48,11 @@ class WebsiteController extends Controller
         return view('category', compact('blogs','categories','category_name'));
 
     }
+    public function notes(){
+        $categories = Category::select('id','categoryName')->get();
+
+        return view('notes', compact('categories'));
+
+    }
 
 }

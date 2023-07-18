@@ -38,6 +38,7 @@ background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
 }
 
 </style>
+@if(url()->full() == 'http://127.0.0.1:8000')
 <section>
   <div class="banner ">
     <div class="container banner-container">
@@ -54,8 +55,9 @@ background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
     </div>
   </div>
 </section>
+@endif
 
-<section class="text-center container">
+<section class="text-center container" id="blog">
     <h2 class="mb-5 pt-5"><strong>Latest Blog posts</strong></h2>
 @if(count($blogs) > 0)
     <div class="row">
