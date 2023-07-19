@@ -8,9 +8,11 @@ use App\Models\blogs;
 use App\Models\Category;
 use App\Models\esewadetail;
 use App\Models\User;
+use App\Notifications\PostNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Psy\CodeCleaner\ReturnTypePass;
 
@@ -72,7 +74,11 @@ class BlogsController extends Controller
         ]);
         if($blog){
             $data = ['title'=>$blog->title, 'auther'=>Auth::user()->name];
-            event(new PostCreated($data));
+            $users = User::all();
+            foreach($users as $user){
+                $user->notify(new PostNotification($data));
+            }
+           // event(new PostCreated($data));
             return redirect('/admin/blogs')->with('status',' Blog added successfully');
         }else{
             return redirect('/admin/blogs')->with('status',' Blog failed to save');

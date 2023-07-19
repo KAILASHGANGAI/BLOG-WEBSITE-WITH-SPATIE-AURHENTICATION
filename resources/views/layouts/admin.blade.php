@@ -9,12 +9,52 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{asset('/css/style.css')}}">
       </head>
+      <style>
+        .dropdown-menu[data-bs-popper] {
+          right: 0;
+          left: auto;
+        }
+        .count{
+          position: absolute;
+          background: red;
+          color: white;
+          border-radius: 75%;
+          padding: 2px;
+          right: 8px;
+          top: 10px;
+          font-size: 8px;
+        }
+      </style>
     
     <body class="antialiased">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ">
             <div class="container-fluid">
-              <a class="navbar-brand float-right" href="#">MyBlog</a>
+              <a class="navbar-brand bg-danger " href="#">MyBlog</a>
+              <div class="dropdown">
+                <div class=" dropdown-toggle"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" >
+                  <i class="fa-solid fa-bell"></i>
+                  @if(count(auth()->user()->unreadnotifications))
+                  <span class="count">{{count(auth()->user()->unreadnotifications)}}</span>
+                  @endif
+                </div>
+                <ul class="dropdown-menu r-0" aria-labelledby="dropdownMenuButton1">
+               
+                      
+                 @foreach (auth()->user()->unReadnotifications as $item)
+                 <li>
+                  <a class="dropdown-item bg-info" href="{{route('markedread',[$item->id])}}"> 
+                    <span>New Blog is Posted By {{$item->data['auther']}} </span> <br>
+                   Title :{{$item->data['title']}} <br>
+                   
+                  </a></li>
+
+                    
+                 @endforeach
+                  <a class="" href="#">See All ..</a>
+                </ul>
+              </div>
             </div>
+           
           </nav>
           {{-- sidebar --}}
           <div class="d-flex flex-column flex-shrink-0 bg-light sidenav" style="width: 8.5rem; height:100%;">

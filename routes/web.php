@@ -19,6 +19,7 @@ Route::post('/comment-submit', [CommentController::class, 'store'])->name('comme
 Route::post('/send-message', [MessageController::class, 'sendMessage']);
 Route::get('/get-message', [MessageController::class, 'getMessage']);
 Route::get('/notes',[WebsiteController::class, 'notes'])->name('notes');
+Route::get('/markedread/{id}',[WebsiteController::class, 'markedread'])->name('markedread');
 
 Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa']);
 Route::view('/login', 'auth.login')->name('login');

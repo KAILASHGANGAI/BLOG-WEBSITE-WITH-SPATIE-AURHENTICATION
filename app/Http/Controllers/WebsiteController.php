@@ -54,5 +54,11 @@ class WebsiteController extends Controller
         return view('notes', compact('categories'));
 
     }
+    public function markedread($id){
+        if($id){
+            auth()->user()->notifications->where('id',$id)->markAsread();
+        }
+        return back();
+    }
 
 }
