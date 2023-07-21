@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EsewaController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManageController;
@@ -41,6 +42,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
+    Route::get('/blogs/{id}', [BlogsController::class,'show']);
+    Route::get('/blogs', [BlogsController::class,'index']);
+    Route::get('/blogs/publish/{id}', [BlogsController::class,'publish'])->middleware(['role:admin|Super-Admin']);
     Route::controller(BlogsController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
         Route::get('/blogs/create', 'create');
         Route::post('/blogs/store', 'store');
@@ -48,6 +52,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/blogs/{id}','update');
         Route::get('/blogs/delete/{id}', 'destroy');
     });
+
+    Route::get('/notes/{id}', [NoteController::class,'show']);
+    Route::get('/notes', [NoteController::class,'index']);
+    Route::controller(NoteController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
+        Route::get('/notes/create', 'create');
+        Route::post('/notes/store', 'store');
+        Route::get('/notes/{id}/edit','edit' );
+        Route::post('/notes/{id}','update');
+        Route::get('/notes/delete/{id}', 'destroy');
+    });   
     Route::controller(CategoryController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
         Route::get('/category', 'index');
         Route::post('/category/store', 'store');
@@ -55,12 +69,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/category/{id}','update');
         Route::get('/category/delete/{id}', 'destroy');
     });
-
-    Route::get('/blogs/{id}', [BlogsController::class,'show']);
-
-    Route::get('/blogs', [BlogsController::class,'index']);
-
-    Route::get('/blogs/publish/{id}', [BlogsController::class,'publish'])->middleware(['role:admin|Super-Admin']);
     Route::controller(UserManageController::class)->middleware(['role:Super-Admin'])->group(function () {
         Route::get('/users', 'index');
         Route::get('/users/create', 'create');
