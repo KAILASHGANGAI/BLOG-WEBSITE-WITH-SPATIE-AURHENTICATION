@@ -4,9 +4,11 @@ use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EsewaController;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\WebsiteController;
@@ -56,12 +58,24 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/notes/{id}', [NoteController::class,'show']);
     Route::get('/notes', [NoteController::class,'index']);
     Route::controller(NoteController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
-        Route::get('/notes/create', 'create');
-        Route::post('/notes/store', 'store');
-        Route::get('/notes/{id}/edit','edit' );
-        Route::post('/notes/{id}','update');
-        Route::get('/notes/delete/{id}', 'destroy');
+       
     });   
+    Route::controller(FacultyController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
+        Route::get('/faculty', 'index');
+        Route::get('/faculty/create','create')->name('faculty.create');
+        Route::post('/faculty/store', 'store')->name('faculty.store');
+        Route::get('/faculty/{id}/edit','edit' )->name('faculty.edit');
+        Route::post('/faculty','update')->name('faculty.update');
+        Route::get('/faculty/delete/{id}', 'destroy')->name('faculty.destroy');
+    });
+    Route::controller(SubjectController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
+        Route::get('/subject', 'index');
+        Route::get('/subject/create','create')->name('subject.create');
+        Route::post('/subject/store', 'store')->name('subject.store');
+        Route::get('/subject/{id}/edit','edit' )->name('subject.edit');
+        Route::post('/subject','update')->name('subject.update');
+        Route::get('/subject/delete/{id}', 'destroy')->name('subject.destroy');
+    });
     Route::controller(CategoryController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
         Route::get('/category', 'index');
         Route::post('/category/store', 'store');
