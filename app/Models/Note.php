@@ -21,4 +21,10 @@ class Note extends Model
     public function users(){
         return $this->belongsTo(User::class);
     }
+    public function faculty(){
+        return $this->hasOne(faculty::class,'id','faculty_id');
+    }
+    public function subject(){
+        return $this->hasOne(subject::class,'id','subject_id');
+    }
 }

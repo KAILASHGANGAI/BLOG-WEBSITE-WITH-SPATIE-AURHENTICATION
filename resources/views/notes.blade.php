@@ -286,20 +286,16 @@
                         </h3>
                         <form action="" method="post">
                             <div class="row">
-
+                              
                                 <div class="col-md-4 mb-2">
                                     <div class="form-group">
                                         <label for="Type">Faculty / Class / Grade</label>
 
                                         <select class="form-control form-control-lg form-control-a" id="Type">
                                             <option value="0">---Select Faculty---</option>
-                                            <option value="1">0+ to 1 Year</option>
-                                            <option value="2">1+ to 2 Years</option>
-                                            <option value="3">2+ to 5 Years</option>
-                                            <option value="4">5+ to 7 Years</option>
-                                            <option value="5">7+ to 10 Years</option>
-                                            <option value="6">10+ to 15 Years</option>
-                                            <option value="7">More than 15 Years</option>
+                                            @foreach ($faculty as $item)
+                                                <option value="{{$item->id}}">{{$item->faculty_name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -308,13 +304,9 @@
                                         <label for="Type">Subjects</label>
                                         <select class="form-control form-control-lg form-control-a" id="Type" required>
                                             <option value="0">---Select Subjects---</option>
-                                            <option value="1">0+ to 1 Year</option>
-                                            <option value="2">1+ to 2 Years</option>
-                                            <option value="3">2+ to 5 Years</option>
-                                            <option value="4">5+ to 7 Years</option>
-                                            <option value="5">7+ to 10 Years</option>
-                                            <option value="6">10+ to 15 Years</option>
-                                            <option value="7">More than 15 Years</option>
+                                            @foreach ($subject as $item)
+                                                <option value="{{$item->id}}">{{$item->subject_name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -335,30 +327,45 @@
     <section class="py-5">
         <div class="container bootstrap snippets bootdeys">
             <div class="row">
-                <div class="col-md-6">
+               
+                    @if(isset($notes)) 
                     <h2 class="py-4">Recently Uploaded Notes</h2>
+                    
+                    @foreach ($notes as $item)
+                    <div class="col-md-6">          
                     <div class="card bg-info-subtle">
 
                         <div class="card-body">
                             <div class="text-section">
-                                <h5 class="card-title fw-bold">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card's content.</p>
+                                <h5 class="card-title fw-bold">{{$item->title}}</h5>
+                                <p class="card-text"><span>Faculty : {{$item->faculty->faculty_name}}</span> 
+                                    <br> Subject : {{$item->subject->subject_name}}</p>
                             </div>
                             <div class="cta-section">
                                 <div>$129.00</div>
                                 <div>Paid</div>
-                                <a href="#" class="btn btn-success float-end mx-2">Buy Now</a>
-                                <a href="#" class="btn btn-info float-end">Download</a>
+                                <a href="{{route('notes.single',[$item->id])}}" class="btn btn-success float-end mx-2">Read More..</a>
+                                <a href="#" class="btn btn-info float-end">Make Purchase</a>
                             </div>
                         </div>
 
                     </div>
-                    <a href="#">see More..</a>
-
                 </div>
-                <div class="col-md-6">
+                    @endforeach
+                    <a href="#">see More..</a>
+                    @else 
+                    <h1>No Notes Found</h1>
+
+                    @endif
+                   
+
+               
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-6 col-sm-6 content-card">
+                        <div class="col-md-3 col-sm-3 content-card">
                             <div class="card-big-shadow">
                                 <div class="card card-just-text" data-background="color" data-color="blue"
                                     data-radius="none">
@@ -371,7 +378,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-sm-6 content-card">
+                        <div class="col-md-3 col-sm-3 content-card">
                             <div class="card-big-shadow">
                                 <div class="card card-just-text" data-background="color" data-color="green"
                                     data-radius="none">
@@ -384,7 +391,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-sm-6 content-card">
+                        <div class="col-md-3 col-sm-3 content-card">
                             <div class="card-big-shadow">
                                 <div class="card card-just-text" data-background="color" data-color="yellow"
                                     data-radius="none">
@@ -397,7 +404,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-sm-6 content-card">
+                        <div class="col-md-3 col-sm-3 content-card">
                             <div class="card-big-shadow">
                                 <div class="card card-just-text" data-background="color" data-color="brown"
                                     data-radius="none">

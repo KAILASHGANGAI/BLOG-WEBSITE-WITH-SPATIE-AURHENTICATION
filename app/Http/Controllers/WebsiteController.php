@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\blogs;
 use App\Models\Category;
 use App\Models\esewadetail;
+use App\Models\faculty;
+use App\Models\Note;
+use App\Models\subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,11 +52,21 @@ class WebsiteController extends Controller
 
     }
     public function notes(){
+        $subject = subject::get(['id','subject_name']);
+        $faculty = faculty::get(['id','faculty_name']);
         $categories = Category::select('id','categoryName')->get();
+        $notes = Note::get()->take(4);
 
-        return view('notes', compact('categories'));
+        return view('notes', compact('categories','notes','subject','faculty'));
 
     }
+public function notesShow($id){
+         $categories = Category::select('id','categoryName')->get();
+        $data = Note::find($id);
+
+        return view('single-notes', compact('categories','data'));
+}
+
     public function markedread($id){
         if($id){
             auth()->user()->notifications->where('id',$id)->markAsread();

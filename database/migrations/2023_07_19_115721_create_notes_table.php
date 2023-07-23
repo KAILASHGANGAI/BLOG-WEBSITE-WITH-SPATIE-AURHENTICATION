@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('faculty_id')->nullable();
             $table->foreignId('subject_id')->nullable();
             $table->string('type')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('files')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();

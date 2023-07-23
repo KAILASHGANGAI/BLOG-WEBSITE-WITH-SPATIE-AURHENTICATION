@@ -21,7 +21,8 @@ Route::get('/blog/category/{category}', [WebsiteController::class, 'categoryBlog
 Route::post('/comment-submit', [CommentController::class, 'store'])->name('comment');
 Route::post('/send-message', [MessageController::class, 'sendMessage']);
 Route::get('/get-message', [MessageController::class, 'getMessage']);
-Route::get('/notes',[WebsiteController::class, 'notes'])->name('notes');
+Route::get('/my-notes',[WebsiteController::class, 'notes'])->name('notes');
+Route::get('/notes/show/{id}',[WebsiteController::class, 'notesShow'])->name('notes.single');
 Route::get('/markedread/{id}',[WebsiteController::class, 'markedread'])->name('markedread');
 
 Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa']);
@@ -58,7 +59,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/notes/{id}', [NoteController::class,'show']);
     Route::get('/notes', [NoteController::class,'index']);
     Route::controller(NoteController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
-       
+       Route::get('/notes/create/new', 'create')->name('notes.create');
+       Route::post('/notes/store','store')->name('notes.store');
+       Route::get('/notes/show/{id}', 'show')->name('notes.show');
+       Route::get('/notes/{id}/edit', 'edit')->name('notes.edit');
+       Route::post('/notes/update', 'update')->name('notes.update');
+       Route::get('/notes/download/{id}', 'download')->name('notes.download');
+       Route::get('/notes/delete/{id}', 'destroy')->name('notes.destroy');
+
     });   
     Route::controller(FacultyController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
         Route::get('/faculty', 'index');
