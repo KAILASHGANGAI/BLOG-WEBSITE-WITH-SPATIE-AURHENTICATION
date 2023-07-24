@@ -22,6 +22,7 @@ Route::post('/comment-submit', [CommentController::class, 'store'])->name('comme
 Route::post('/send-message', [MessageController::class, 'sendMessage']);
 Route::get('/get-message', [MessageController::class, 'getMessage']);
 Route::get('/my-notes',[WebsiteController::class, 'notes'])->name('notes');
+Route::post('/my-notes',[WebsiteController::class, 'notesSearch'])->name('notes.search');
 Route::get('/notes/show/{id}',[WebsiteController::class, 'notesShow'])->name('notes.single');
 Route::get('/markedread/{id}',[WebsiteController::class, 'markedread'])->name('markedread');
 

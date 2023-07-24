@@ -284,14 +284,15 @@
                     <div class="col-md-12   main_search_outer  ">
                         <h3>I'm Looking For E-Notes
                         </h3>
-                        <form action="" method="post">
+                        <form action="{{route('notes.search')}}" method="post">
+                            @csrf
                             <div class="row">
                               
                                 <div class="col-md-4 mb-2">
                                     <div class="form-group">
                                         <label for="Type">Faculty / Class / Grade</label>
 
-                                        <select class="form-control form-control-lg form-control-a" id="Type">
+                                        <select name="faculty" class="form-control form-control-lg form-control-a" id="Type">
                                             <option value="0">---Select Faculty---</option>
                                             @foreach ($faculty as $item)
                                                 <option value="{{$item->id}}">{{$item->faculty_name}}</option>
@@ -302,7 +303,7 @@
                                 <div class="col-md-4 mb-2">
                                     <div class="form-group">
                                         <label for="Type">Subjects</label>
-                                        <select class="form-control form-control-lg form-control-a" id="Type" required>
+                                        <select name="subject" class="form-control form-control-lg form-control-a" id="Type" required>
                                             <option value="0">---Select Subjects---</option>
                                             @foreach ($subject as $item)
                                                 <option value="{{$item->id}}">{{$item->subject_name}}</option>
