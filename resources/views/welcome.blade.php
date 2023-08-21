@@ -94,7 +94,7 @@ background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
             @if($blog->type =='free')
             <a href="/single-blog/{{$blog->id}}" class="btn btn-primary">Read more..</a>
             @else
-            <a href="/choose-payment-methods/{{$blog->id}}" class="btn btn-danger">Buy Now!</a>
+            <a href="/choose-payment-methods/blog/{{$blog->id}}" class="btn btn-danger">Buy Now!</a>
             @endif
           </div>
         </div>

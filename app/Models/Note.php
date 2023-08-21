@@ -13,6 +13,7 @@ class Note extends Model
         'faculty_id',
         'subject_id',
         'type',
+        'price',
         'description',
         'files',
         'user_id',

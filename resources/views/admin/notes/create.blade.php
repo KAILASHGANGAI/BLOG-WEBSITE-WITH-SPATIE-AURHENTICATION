@@ -33,6 +33,7 @@
                         @error('faculty') <span class="text-danger">{{$message}}</span> @enderror
                     </div>
                 </div>
+
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">Subject</label> <br>
@@ -61,6 +62,23 @@
                         @error('title') <span class="text-danger">{{$message}}</span> @enderror
 
                     </div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="#"> Note Types</label> <br>
+                    @error('type') <span class="text-danger">{{$message}}</span> @enderror
+
+                    <select name="type" id="" class="form-control">
+                      
+                        <option value="@isset($data->type) {{$data->type}} @else {{ ''}} @endif">@isset($data->type) {{$data->type}} @else {{'Choose'}} @endif</option>
+                          
+                  
+                        <option value="free">Free</option>
+                        <option value="paid">Paied</option>
+                    </select>
+                </div>  
+                <div class="form-group col-sm-4">
+                    <label for="#">Price</label> <br>
+                    <input type="number" name="price" id="" class="form-control" value="@if(isset($data)) {{$data->price}}@endif">
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">

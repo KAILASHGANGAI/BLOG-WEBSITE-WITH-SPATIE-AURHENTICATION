@@ -61,8 +61,6 @@ class BlogsController extends Controller
          $request->image->move(public_path('image'), $imageName);
          $path = 'image/'.$imageName;
         //$path = Storage::put('/blogs/img', $request->image);
-        
-
         $blog = blogs::create([
             'title'=>$request->title,
             'description'=>$request->description,

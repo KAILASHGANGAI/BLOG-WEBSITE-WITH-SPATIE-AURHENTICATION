@@ -7,7 +7,7 @@
         
     
     <div>
-        <a href="/admin/blogs/create">Add Blogs</a>
+        <a href="{{route('blogs.create')}}">Add Blogs</a>
     </div> <hr>
     @endcan
   <table class="table">

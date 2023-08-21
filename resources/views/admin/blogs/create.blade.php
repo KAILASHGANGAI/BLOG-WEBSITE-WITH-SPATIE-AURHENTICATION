@@ -51,7 +51,7 @@
         </div>
         <div class="form-group col-sm-4">
             <label for="#">Price</label> <br>
-            <input type="text" name="price" id="" class="form-control">
+            <input type="text" name="price" id="" class="form-control" value="@isset($data) {{$data->price}}    @endif">
         </div>
         <div class="form-group">
             

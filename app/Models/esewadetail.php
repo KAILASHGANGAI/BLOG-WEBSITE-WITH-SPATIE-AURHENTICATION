@@ -9,7 +9,7 @@ class esewadetail extends Model
 {
     use HasFactory;
     protected $table = 'payment_details';
-    protected $fillable = ['user_id','username','blog_id','amount','esewa_status'];
+    protected $fillable = ['user_id','username','blog_id','payed_for','note_id','amount','esewa_status'];
     public function blogs(){
         return $this->hasOne(blogs::class,'id','blog_id');
     }

@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\Input;
 class NoteController extends Controller
 {
     public function index(){
-        $datas = Note::with('faculty:id,faculty_name','subject:id,subject_name')->get(['id','title','faculty_id','subject_id']);
+        $datas = Note::with('faculty:id,faculty_name','subject:id,subject_name')->get(['id','title','faculty_id','subject_id','type','price']);
         return view('admin.notes.index', compact('datas'));
     }
     public function create(){
@@ -32,6 +32,7 @@ class NoteController extends Controller
         'faculty'=>'required',
             'subject'=>'required',
             'title'=>'required',
+            'type'=>'required',
             'file'=>'required|mimes:csv,txt,xlx,xls,pdf',
             'description'=>'required'
        ]);
@@ -46,7 +47,8 @@ class NoteController extends Controller
         'title'=>$req->title,
         'faculty_id'=>$req->faculty,
         'subject_id'=>$req->subject,
-
+        'price'=>$req->price,
+        'type'=>$req->type,
         'description'=>$req->description,
         'files'=>$path,
         'user_id'=>Auth::id(),
@@ -56,7 +58,6 @@ class NoteController extends Controller
     }
  public function show($id){
     $data = Note::with('faculty', 'subject')->where('id',$id)->first();
-   
     return view('admin.notes.show', compact('data'));
  }
  
@@ -86,6 +87,8 @@ class NoteController extends Controller
       'title'=>$req->title,
       'faculty_id'=>$req->faculty,
       'subject_id'=>$req->subject,
+      'price'=>$req->price,
+      'type'=>$req->type,
       'description'=>$req->description,
       'files'=>$path,
     
@@ -98,7 +101,6 @@ class NoteController extends Controller
     if (isset($data->files)) {
         unlink($data->files);
     }
-
     if($data->delete()){
       return  back()->with('status','deleted successfully');
     }

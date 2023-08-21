@@ -26,7 +26,7 @@ Route::post('/my-notes',[WebsiteController::class, 'notesSearch'])->name('notes.
 Route::get('/notes/show/{id}',[WebsiteController::class, 'notesShow'])->name('notes.single');
 Route::get('/markedread/{id}',[WebsiteController::class, 'markedread'])->name('markedread');
 
-Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa']);
+Route::get('/choose-payment-methods/{payment_type}/{id}', [EsewaController::class, 'payWithEsewa']);
 Route::view('/login', 'auth.login')->name('login');
 
 Route::view('/register', 'auth.register')->name('register');
@@ -46,11 +46,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
+
     Route::get('/blogs/{id}', [BlogsController::class,'show']);
     Route::get('/blogs', [BlogsController::class,'index']);
     Route::get('/blogs/publish/{id}', [BlogsController::class,'publish'])->middleware(['role:admin|Super-Admin']);
     Route::controller(BlogsController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
-        Route::get('/blogs/create', 'create');
+        Route::get('/blogs/create/new', 'create')->name('blogs.create');
         Route::post('/blogs/store', 'store');
         Route::get('/blogs/{id}/edit','edit' );
         Route::post('/blogs/{id}','update');

@@ -343,10 +343,10 @@
                                     <br> Subject : {{$item->subject->subject_name}}</p>
                             </div>
                             <div class="cta-section">
-                                <div>$129.00</div>
-                                <div>Paid</div>
+                                <div>Price: NPR {{$item->price}}</div>
+                                <div>{{$item->type}}</div>
                                 <a href="{{route('notes.single',[$item->id])}}" class="btn btn-success float-end mx-2">Read More..</a>
-                                <a href="#" class="btn btn-info float-end">Make Purchase</a>
+                                <a href="/choose-payment-methods/note/{{$item->id}}" class="btn btn-info float-end">Make Purchase</a>
                             </div>
                         </div>
 

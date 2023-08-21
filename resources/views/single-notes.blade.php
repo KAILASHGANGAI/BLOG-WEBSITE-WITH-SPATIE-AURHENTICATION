@@ -6,6 +6,7 @@
 <h3>faculty: {{$data->faculty->faculty_name}}</h3>
 <h3>subject: {{$data->subject->subject_name}}</h3>
 <p>{!! $data->description !!}</p>
+{{$data}}
 @if($data->type == 'free')
 <embed src="{{asset($data->files.'#toolbar=0')}}" class="w-100" style="height:600px;">
     @else

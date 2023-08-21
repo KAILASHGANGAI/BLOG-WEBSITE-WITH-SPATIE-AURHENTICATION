@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('username');
-            $table->foreignId('blog_id');
+            $table->string('payed_for');
+            $table->foreignId('blog_id')->nullable();
+            $table->foreignId('note_id')->nullable();
             $table->integer('amount');
             $table->longText('esewa_status')->default('unverified');
             $table->timestamps();

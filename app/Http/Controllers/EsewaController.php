@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\blogs;
+use App\Models\Category;
 use App\Models\esewadetail;
+use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 require '../vendor/autoload.php';
@@ -21,14 +23,23 @@ class EsewaController extends Controller
 
       return view('payment/index', compact('datas'));
     }
-    public function payWithEsewa($id){
+    public function payWithEsewa($payment_type, $id){
+      if($payment_type == 'blog'){
        $blog = blogs::find($id);
+       $amount = $blog->price;
+      }else{
+        $note = Note::find($id);
+        $amount = $note->price;
+      }
+
        $payment = esewadetail::create([
         'user_id'=>Auth::id(),
         'username'=>Auth::user()->name,
+        'payed_for'=>$payment_type,
         'blog_id'=>$id,
-        'amount'=>$blog->price,
+        'amount'=>$amount,
        ]);
+
 
       // Set success and failure callback URLs.
         $successUrl = url('/success');
@@ -50,14 +61,14 @@ class EsewaController extends Controller
         $msg = 'SuccessFully Paied';
         $msg2 = 'Thank You for making Purches with Us!!';
        }
-        return view('esewa_payment', compact('msg', 'msg2'));
+       $categories = Category::all();
+        return view('esewa_payment', compact('msg', 'msg2','categories'));
     }
     public function esewaPayFailed(){
-       
             $msg = 'Failed';
             $msg2 = 'Please Contact with us ! ';
-           
-            return view('esewa_payment', compact('msg', 'msg2'));
+       $categories = Category::all();
+            return view('esewa_payment', compact('msg', 'msg2','categories'));
 
       
     }
