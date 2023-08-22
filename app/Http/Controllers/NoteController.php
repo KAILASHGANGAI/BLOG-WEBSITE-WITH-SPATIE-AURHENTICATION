@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\faculty;
 use App\Models\Note;
 use App\Models\subject;
+use App\Models\User;
 use Faker\Core\File;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Validation\Validator as ValidationValidator;
@@ -17,8 +19,26 @@ use Symfony\Component\Console\Input\Input;
 class NoteController extends Controller
 {
     public function index(){
-        $datas = Note::with('faculty:id,faculty_name','subject:id,subject_name')->get(['id','title','faculty_id','subject_id','type','price']);
-        return view('admin.notes.index', compact('datas'));
+      $user_type = User::with('roles')->find(Auth::id())->roles[0]->name;
+
+      if($user_type == 'default'){
+       
+       
+        $datas =  DB::table('notes')
+       ->join('payment_details', 'notes.id', '=', 'payment_details.note_id')
+       ->join('users', 'payment_details.user_id', '=', 'users.id')
+       ->where('payment_details.user_id', Auth::id())
+       ->where('payment_details.esewa_status', 'verified')
+       ->get();
+       return view('admin.notes.index',compact('datas', 'user_type'));
+
+      }else{
+        $datas = Note::with('users')->latest()->paginate(5);
+        return view('admin.notes.index',compact('datas', 'user_type'));
+
+      }
+        // $datas = Note::with('faculty:id,faculty_name','subject:id,subject_name')->get(['id','title','faculty_id','subject_id','type','price']);
+        // return view('admin.notes.index', compact('datas'));
     }
     public function create(){
         $subject = subject::get(['id','subject_name']);
@@ -57,6 +77,7 @@ class NoteController extends Controller
          
     }
  public function show($id){
+  
     $data = Note::with('faculty', 'subject')->where('id',$id)->first();
     return view('admin.notes.show', compact('data'));
  }

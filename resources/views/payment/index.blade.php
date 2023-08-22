@@ -7,7 +7,7 @@
 </section>
 
 <table class="table border">
-   <tr> <th>S.N</th> <th>Name</th> <th>Contact</th><th>Amount</th> <th>Status</th> <th>Blog Title</th>  <th>Date</th> </tr>
+   <tr> <th>S.N</th> <th>Name</th> <th>Contact</th><th>Amount</th> <th>Status</th> <th>Type</th>  <th>Date</th> </tr>
 @php
      $total = 0;
 @endphp
@@ -28,7 +28,7 @@
            
             <td>{{$item->amount}}</td>
             <td>{{$item->esewa_status}}</td>
-            <td>{{$item->blogs->title}}</td>
+            <td>{{$item->payed_for}}</td>
             <td>{{$item->created_at}}</td>
             @php
                 if ($item->esewa_status == 'verified') {

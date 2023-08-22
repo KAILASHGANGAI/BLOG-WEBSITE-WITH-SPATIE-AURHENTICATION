@@ -72,6 +72,11 @@
                   Blogs
                   </a>
               </li>
+              <li>
+                <a href="/admin/notes" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+                    Notes
+                </a>
+              </li>
               @can('super-admin')
               <li>
                 <a href="/admin/category" class="nav-link py-3 border-bottom" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
@@ -93,12 +98,6 @@
                     Payments
                 </a>
               </li>
-              @endcan
-              <li>
-                <a href="/admin/notes" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
-                    Notes
-                </a>
-              </li>
               <li>
                 <a href="/admin/faculty" class="nav-link py-3 border-bottom" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
                     Faculty
@@ -109,6 +108,9 @@
                     Subject
                 </a>
               </li>
+              @endcan
+             
+              
             </ul>
             <div class="dropdown border-top">
               <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">

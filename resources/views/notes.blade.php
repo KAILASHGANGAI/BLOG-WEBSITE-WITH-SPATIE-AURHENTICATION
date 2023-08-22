@@ -171,13 +171,11 @@
         .card[data-color="blue"] .category {
             color: #7a9e9f;
         }
-
         .card .category,
         .card .label {
             font-size: 14px;
             margin-bottom: 0px;
         }
-
         .card-big-shadow:before {
             background-image: url("http://static.tumblr.com/i21wc39/coTmrkw40/shadow.png");
             background-position: center bottom;
@@ -346,8 +344,10 @@
                                 <div>Price: NPR {{$item->price}}</div>
                                 <div>{{$item->type}}</div>
                                 <a href="{{route('notes.single',[$item->id])}}" class="btn btn-success float-end mx-2">Read More..</a>
-                                <a href="/choose-payment-methods/note/{{$item->id}}" class="btn btn-info float-end">Make Purchase</a>
-                            </div>
+                              @if($item->type != 'free')
+                                <a href="/choose-payment-methods/note/{{$item->id}}" class="btn btn-danger float-end">Make Purchase</a>
+                                @endif
+                              </div>
                         </div>
 
                     </div>
@@ -417,10 +417,6 @@
                                 </div> <!-- end card -->
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>

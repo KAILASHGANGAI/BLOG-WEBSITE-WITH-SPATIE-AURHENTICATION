@@ -36,10 +36,16 @@ class EsewaController extends Controller
         'user_id'=>Auth::id(),
         'username'=>Auth::user()->name,
         'payed_for'=>$payment_type,
-        'blog_id'=>$id,
         'amount'=>$amount,
        ]);
 
+       if($payment_type == 'blog'){
+       $payment->blog_id = $id;
+       }else{
+       $payment->note_id = $id;
+        
+       }
+       $payment->save();
 
       // Set success and failure callback URLs.
         $successUrl = url('/success');

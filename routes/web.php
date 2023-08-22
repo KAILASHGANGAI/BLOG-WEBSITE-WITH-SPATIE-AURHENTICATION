@@ -26,7 +26,7 @@ Route::post('/my-notes',[WebsiteController::class, 'notesSearch'])->name('notes.
 Route::get('/notes/show/{id}',[WebsiteController::class, 'notesShow'])->name('notes.single');
 Route::get('/markedread/{id}',[WebsiteController::class, 'markedread'])->name('markedread');
 
-Route::get('/choose-payment-methods/{payment_type}/{id}', [EsewaController::class, 'payWithEsewa']);
+Route::get('/choose-payment-methods/{payment_type}/{id}', [EsewaController::class, 'payWithEsewa'])->middleware('auth');
 Route::view('/login', 'auth.login')->name('login');
 
 Route::view('/register', 'auth.register')->name('register');
@@ -35,7 +35,7 @@ Route::post('login-check', [UserController::class,'login']);
 Route::post('register-save',[UserController::class, 'register']);
 Route::get('/logout',[UserController::class,'logout']);
 
-Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa'])->middleware('auth');
+// Route::get('/choose-payment-methods/{id}', [EsewaController::class, 'payWithEsewa'])->middleware('auth');
 
 Route::get('/success', [EsewaController::class, 'esewaPaySuccess']);
 Route::get('/failed', [EsewaController::class, 'esewaPayFailed']);
@@ -60,10 +60,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::get('/notes/{id}', [NoteController::class,'show']);
     Route::get('/notes', [NoteController::class,'index']);
+    Route::get('/notes/show/{id}', [NoteController::class,'show'])->name('notes.show');
+
     Route::controller(NoteController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
        Route::get('/notes/create/new', 'create')->name('notes.create');
        Route::post('/notes/store','store')->name('notes.store');
-       Route::get('/notes/show/{id}', 'show')->name('notes.show');
        Route::get('/notes/{id}/edit', 'edit')->name('notes.edit');
        Route::post('/notes/update', 'update')->name('notes.update');
        Route::get('/notes/download/{id}', 'download')->name('notes.download');
