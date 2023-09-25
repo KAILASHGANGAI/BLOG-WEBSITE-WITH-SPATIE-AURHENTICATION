@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Psy\CodeCleaner\ReturnTypePass;
-
+use DataTables;
 class BlogsController extends Controller
 {
     /**
@@ -35,6 +35,8 @@ class BlogsController extends Controller
            ->where('payment_details.user_id', Auth::id())
            ->where('payment_details.esewa_status', 'verified')
            ->get();
+
+
            return view('admin.blogs.index',compact('datas', 'user_type'));
 
           }else{
@@ -43,6 +45,7 @@ class BlogsController extends Controller
 
           }
     }
+    
     /**
      * Show the form for creating a new resource.
      */

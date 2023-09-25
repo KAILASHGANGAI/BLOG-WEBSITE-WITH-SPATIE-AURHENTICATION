@@ -41,6 +41,7 @@ Route::get('/success', [EsewaController::class, 'esewaPaySuccess']);
 Route::get('/failed', [EsewaController::class, 'esewaPayFailed']);
 
 
+
 Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', function () {
@@ -48,7 +49,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     });
 
     Route::get('/blogs/{id}', [BlogsController::class,'show']);
-    Route::get('/blogs', [BlogsController::class,'index']);
+    Route::get('/blogs', [BlogsController::class,'index'])->name('blog.index');
     Route::get('/blogs/publish/{id}', [BlogsController::class,'publish'])->middleware(['role:admin|Super-Admin']);
     Route::controller(BlogsController::class)->middleware(['role:writer|Super-Admin'])->group(function () {
         Route::get('/blogs/create/new', 'create')->name('blogs.create');
@@ -107,3 +108,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 
+Route::get('/file-import',[UserController::class,'importView'])->name('import-view');
+Route::post('/import',[UserController::class,'import'])->name('import');
+Route::get('/export-users',[UserController::class,'exportUsers'])->name('export-users');

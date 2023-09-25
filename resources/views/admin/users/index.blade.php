@@ -7,7 +7,18 @@
     
     <div>
         <a href="/admin/users/create">Add users</a>
-    </div> <hr>
+    </div> 
+    <form action="{{ route('import') }}" class="float-end d-flex" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group ">
+            <div class="custom-file text-left">
+                <input type="file" name="file" class="custom-file-input" id="customFile">
+            </div>
+        </div>
+        <button class="btn btn-primary mx-3">Import Users</button>
+        <a class="btn btn-success" href="{{ route('export-users') }}">Export Users</a>
+    </form>
+  
     @endcan
   <table class="table">
 <tr>

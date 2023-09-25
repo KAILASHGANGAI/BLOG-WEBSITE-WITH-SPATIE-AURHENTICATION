@@ -17,7 +17,10 @@ class WebsiteController extends Controller
     {
         $blogs = blogs::latest()->where('status', 1)->paginate(9);
         $categories = Category::select('id', 'categoryName')->get();
-        return view('welcome', compact('blogs', 'categories'));
+
+
+       // return response()->json($blogs);
+       return view('welcome', compact('blogs', 'categories'));
     }
     public function show($id)
     {

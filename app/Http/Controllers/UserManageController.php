@@ -12,7 +12,7 @@ class UserManageController extends Controller
     
     public function index()
     {
-    $datas = User::with('roles')->latest()->paginate(5);
+    $datas = User::with('roles')->latest()->paginate(25);
   
         return view('admin.users.index',compact('datas'));
     }
